@@ -3,7 +3,7 @@
  * Takes address of Guestbook backend server and id of HTML page where to place output data (comments etc.)
  * @param {HTML} endpointAddress address of HTML backend server
  * @param {id} mountPoint id of HTML page element to place output data there
- * @returns Your mom
+ * @returns nope
  */
 function FrontendContent(endpointAddress, mountPoint) {
     this.idHashPrevious = 0;
