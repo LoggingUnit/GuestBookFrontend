@@ -1,3 +1,4 @@
+'use strict';
 /**
  * Main frontend class.
  * Takes address of Guestbook backend server and id of HTML page where to place output data (comments etc.)
