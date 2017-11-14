@@ -60,11 +60,30 @@ class FrontendContent {
      * Query server for all comments
      */
     getAllComments() {
-        var xhr = new XMLHttpRequest();
         var that = this;
-        xhr.addEventListener('readystatechange', function () {
-            if (xhr.readyState === xhr.DONE) {
-                var responseArray = JSON.parse(xhr.responseText);
+        var promise = new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", that.endpointAddress);
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    resolve(xhr.responseText);
+                } else {
+                    var error = new Error(this.statusText);
+                    error.code = this.status;
+                    reject(error);
+                }
+            };
+
+            xhr.onerror = function () {
+                reject(new Error("Network Error"));
+            };
+
+            xhr.send();
+        });
+
+        promise
+            .then(result => {
+                var responseArray = JSON.parse(result);
                 var hash = 0;
                 for (var i = 0; i < responseArray.length; i++) {
                     hash += responseArray[i].id;
@@ -74,10 +93,8 @@ class FrontendContent {
                     that.refreshView(responseArray);
                     that.idHashPrevious = hash;
                 }
-            }
-        })
-        xhr.open("GET", this.endpointAddress);
-        xhr.send();
+            },   error => {console.log("Get all comments error");}
+            );
     }
 
     /**

@@ -1,3 +1,5 @@
+"use strict";
+
 var frontendContent = new FrontendContent("http://5.79.97.34:8090/guestbook","comments");
 
 var postButton = document.getElementById("buttonPost");
