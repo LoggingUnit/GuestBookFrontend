@@ -108,6 +108,8 @@ class FrontendContent {
         if ((headerElement.value !== "") && (bodyElement.value !== "")) {
             var dataOutput = "header=" + encodeURIComponent(headerElement.value)
                 + "&body=" + encodeURIComponent(bodyElement.value);
+            headerElement.value = '';
+            bodyElement.value = '';
             var xhrPostForm = new XMLHttpRequest();
             xhrPostForm.addEventListener("readystatechange", function () {
                 if (xhrPostForm.readyState === xhrPostForm.DONE) {
