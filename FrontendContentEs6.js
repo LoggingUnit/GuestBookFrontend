@@ -38,23 +38,80 @@ class FrontendContent {
     */
     refreshView(commentsArray) {
         var result = '';
-        console.log("refreshed");
+        var mount = document.getElementById(this.mountPoint);
+        // Removes all child nodes (already uploaded comments in mount point)
+        while (mount.firstChild) {
+            console.log(mount.firstChild, "removed");
+            mount.removeChild(mount.firstChild);
+        }
         commentsArray.sort((a, b) => b.id - a.id); //lambda comparator
         for (var i = 0; i < commentsArray.length; i++) {
             var currentComment = commentsArray[i];
-            // Append html elements
-            result += '<div class = "delete">';
-            result += '<input type="button" onclick="frontendContent.deleteComment(' + currentComment.id + ')" value="[X]"></input>';
-            result += '</div>';
-            result += '<div class = "comment">';
-            result += '<h3>' + currentComment.header + '</h3>';
-            result += '<pre>' + currentComment.body + '</pre>';
-            result += '</div>';
+            var mekKek = this.createMessage(currentComment);
+            mount.appendChild(this.createMessage(currentComment));
         }
-        // Put result on page`
-        document.getElementById(this.mountPoint).innerHTML = result;
-        return result;
     }
+
+    /**
+     * Takes one comment from comments array and returns a <div> with filled body, header
+     * and delete button
+     * @param {*} comment one of the comments from comments array
+     * @returns Filled <div> message
+     */
+    createMessage(comment) {
+        var that = this;
+        let message = document.createElement('div');
+        message.className = 'message';
+        let com = document.createElement('div');
+        message.className = 'comment';
+
+        // Del button create
+        let del = document.createElement('button')
+        del.className = 'delete';
+        del.value = '[X]';
+        del.addEventListener('click', function () {
+            console.log('del clicked');
+            that.deleteComment(comment.id);
+        })
+
+        // Header field create
+        let head = document.createElement('h3');
+        head.textContent = comment.header;
+
+        // Body field create
+        let bod = document.createElement('pre');
+        bod.textContent = comment.body;
+        
+        // Append child to parents
+        com.appendChild(head);
+        com.appendChild(bod);
+        message.appendChild(del);
+        message.appendChild(com);
+
+        console.log(message);
+
+        return message;
+    }
+
+    // refreshView(commentsArray) {
+    //     var result = '';
+    //     console.log("refreshed");
+    //     commentsArray.sort((a, b) => b.id - a.id); //lambda comparator
+    //     for (var i = 0; i < commentsArray.length; i++) {
+    //         var currentComment = commentsArray[i];
+    //         // Append html elements
+    //         result += '<div class = "delete">';
+    //         result += '<input type="button" onclick="frontendContent.deleteComment(' + currentComment.id + ')" value="[X]"></input>';
+    //         result += '</div>';
+    //         result += '<div class = "comment">';
+    //         result += '<h3>' + currentComment.header + '</h3>';
+    //         result += '<pre>' + currentComment.body + '</pre>';
+    //         result += '</div>';
+    //     }
+    //     // Put result on page`
+    //     document.getElementById(this.mountPoint).innerHTML = result;
+    //     return result;
+    // }
 
     /**
      * Query server for all comments
@@ -93,7 +150,7 @@ class FrontendContent {
                     that.refreshView(responseArray);
                     that.idHashPrevious = hash;
                 }
-            },   error => {console.log("Get all comments error");}
+            }, error => { console.log("Get all comments error"); }
             );
     }
 
