@@ -47,7 +47,6 @@ class FrontendContent {
         commentsArray.sort((a, b) => b.id - a.id); //lambda comparator
         for (var i = 0; i < commentsArray.length; i++) {
             var currentComment = commentsArray[i];
-            var mekKek = this.createMessage(currentComment);
             mount.appendChild(this.createMessage(currentComment));
         }
     }
@@ -59,29 +58,27 @@ class FrontendContent {
      * @returns Filled <div> message
      */
     createMessage(comment) {
+        // Creates main message div (comment + delete)
         var that = this;
         let message = document.createElement('div');
         message.className = 'message';
+        // Creates div for header and body (header + body)
         let com = document.createElement('div');
         message.className = 'comment';
-
-        // Del button create
-        let del = document.createElement('button')
+        // Creates button del  
+        let del = document.createElement('div')
         del.className = 'delete';
-        del.value = '[X]';
+        del.textContent = '[X]';
         del.addEventListener('click', function () {
             console.log('del clicked');
             that.deleteComment(comment.id);
         })
-
-        // Header field create
+        // Creates field header  
         let head = document.createElement('h3');
         head.textContent = comment.header;
-
-        // Body field create
+        // Creates field body  
         let bod = document.createElement('pre');
         bod.textContent = comment.body;
-        
         // Append child to parents
         com.appendChild(head);
         com.appendChild(bod);
@@ -89,29 +86,8 @@ class FrontendContent {
         message.appendChild(com);
 
         console.log(message);
-
         return message;
     }
-
-    // refreshView(commentsArray) {
-    //     var result = '';
-    //     console.log("refreshed");
-    //     commentsArray.sort((a, b) => b.id - a.id); //lambda comparator
-    //     for (var i = 0; i < commentsArray.length; i++) {
-    //         var currentComment = commentsArray[i];
-    //         // Append html elements
-    //         result += '<div class = "delete">';
-    //         result += '<input type="button" onclick="frontendContent.deleteComment(' + currentComment.id + ')" value="[X]"></input>';
-    //         result += '</div>';
-    //         result += '<div class = "comment">';
-    //         result += '<h3>' + currentComment.header + '</h3>';
-    //         result += '<pre>' + currentComment.body + '</pre>';
-    //         result += '</div>';
-    //     }
-    //     // Put result on page`
-    //     document.getElementById(this.mountPoint).innerHTML = result;
-    //     return result;
-    // }
 
     /**
      * Query server for all comments
