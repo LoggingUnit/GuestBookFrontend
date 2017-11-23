@@ -1,64 +1,133 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<title>:: Guestbook ::</title>
-		<style type="text/css">
-					body {
-					background-color: #f0f0f2;
-					margin: 0;
-					padding: 0;
-					font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>:: Guestbook ::</title>
+	<style type="text/css">
+		body {
+			background-color: #f0f0f2;
+			margin: 0;
+			padding: 0;
+			font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+		}
+
+		#content {
+			width: 600px;
+			margin: 5em auto;
+			padding: 50px;
+			background-color: #fff;
+			border-radius: 1em;
+		}
+
+		a:link,
+		a:visited {
+			color: #38488f;
+			text-decoration: none;
+		}
+
+		@media (max-width: 700px) {
+			body {
+				background-color: #fff;
 			}
-			#content {
-					width: 600px;
-					margin: 5em auto;
-					padding: 50px;
-					background-color: #fff;
-					border-radius: 1em;
+			div {
+				width: auto;
+				margin: 0 auto;
+				border-radius: 0;
+				padding: 1em;
 			}
-			a:link, a:visited {
-					color: #38488f;
-					text-decoration: none;
-			}
-			@media (max-width: 700px) {
-					body {
-							background-color: #fff;
-					}
-					div {
-							width: auto;
-							margin: 0 auto;
-							border-radius: 0;
-							padding: 1em;
-					}
-			}
-			.wide {
-				width: 100%
-			}
-			.delete {
-				float: right
-			}
-		</style>
-	</head>
-  <body>
+		}
+
+		.wide {
+			width: 100%
+		}
+
+		.delete {
+			float: right
+		}
+
+		/* The Modal (background) */
+
+		.modal {
+			display: none;
+			/* Hidden by default */
+			position: fixed;
+			/* Stay in place */
+			z-index: 1;
+			/* Sit on top */
+			padding-top: 100px;
+			/* Location of the box */
+			left: 0;
+			top: 0;
+			width: 100%;
+			/* Full width */
+			height: 100%;
+			/* Full height */
+			overflow: auto;
+			/* Enable scroll if needed */
+			background-color: rgb(0, 0, 0);
+			/* Fallback color */
+			background-color: rgba(0, 0, 0, 0.4);
+			/* Black w/ opacity */
+		}
+
+		/* Modal Content */
+
+		.modal-content {
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+		}
+
+		/* The Close Button */
+
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
 	<div id="content">
 		<h1>Guestbook</h1>
-  		<p>Post new comment:</p>
-  		<form method="post" action="/submit">
-      		<div>
-        		<b>Header:</b><br>
-        		<input id="formHeader" type="text" name="header" class="wide"><br>
-        		Body:<br>
-        		<textarea id="formBody" name="body" rows="5" cols="40" class="wide"></textarea>
-        		<input id="buttonPost" onclick="event.preventDefault()" type="submit" value="POST">
-      		</div>
+		<p>Post new comment:</p>
+		<form method="post" action="/submit">
+			<div>
+				<b>Header:</b>
+				<br>
+				<input id="formHeader" type="text" name="header" class="wide">
+				<br> Body:
+				<br>
+				<textarea id="formBody" name="body" rows="5" cols="40" class="wide"></textarea>
+				<input id="buttonPost" onclick="event.preventDefault()" type="submit" value="POST">
+			</div>
 		</form>
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Please enter something in header and body fields below</p>
+			</div>
+		</div>
 		<p>Latest comments:</p>
 		<div id="comments"></div>
 	</div>
-  </body>
-  <!-- <script src="FrontendContentEs5.js"></script> -->
-  <script src="FrontendContentEs6.js"></script>
-  <script src="scripts.js"></script>
+</body>
+<script src="FrontendContentEs6.js"></script>
+<script src="scripts.js"></script>
+
 </html>
