@@ -167,6 +167,6 @@ class FrontendContent {
                     modal.style.display = "none";
                 }
             }
-        };
+        }
     }
 }
