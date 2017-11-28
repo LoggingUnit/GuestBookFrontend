@@ -70,6 +70,7 @@ class FrontendContent {
         let del = document.createElement('div')
         del.className = 'delete';
         del.textContent = '[X]';
+        del.title = 'Удалить сообщение';
         del.addEventListener('click', function () {
             console.log('del clicked');
             that.deleteComment(comment.id);
