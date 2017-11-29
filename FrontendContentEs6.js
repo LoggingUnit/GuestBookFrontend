@@ -39,12 +39,12 @@ class FrontendContent {
     refreshView(commentsArray) {
         var mount = document.getElementById(this.mountPoint);
 
-        commentsArray.sort((a, b) => b.id - a.id); //lambda comparator
+        commentsArray.sort((a, b) => a.id - b.id); //lambda comparator
 
         for (let i = 0; i < commentsArray.length; i++) {
             var currentComment = commentsArray[i];
             if (!document.getElementById(currentComment.id)) {
-                mount.appendChild(this.createMessage(currentComment));
+                mount.insertBefore(this.createMessage(currentComment), mount.firstChild);
                 console.info("Node with ID: ", currentComment.id, " created");
             }
         }
@@ -142,7 +142,7 @@ getAllComments() {
             for (var i = 0; i < responseArray.length; i++) {
                 hash += responseArray[i].id;
             }
-            console.log(hash);
+            console.log('Current elements hash: ', hash);
             if (hash !== that.idHashPrevious) {
                 that.refreshView(responseArray);
                 that.idHashPrevious = hash;
