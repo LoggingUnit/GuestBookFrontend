@@ -32,7 +32,7 @@ a:visited {
     text-decoration: none;
 }
 
-@media (min-resolution: 200dpi) {
+@media (min-resolution: 280dpi) {
     body {
         background-color: black;
     }
